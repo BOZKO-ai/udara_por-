@@ -5,10 +5,12 @@ export const portfolioData = {
   },
 
   navLinks: [
-    { label: 'Home',      href: '#hero' },
-    { label: 'About',     href: '#about' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Contact',   href: '#contact' },
+    { label: 'Home',           href: '#hero',           icon: 'FiHome' },
+    { label: 'About',          href: '#about',          icon: 'FiUser' },
+    { label: 'Tech Stack',     href: '#tech-stack',     icon: 'FiCpu' },
+    { label: 'Certifications', href: '#certifications', icon: 'FiAward' },
+    { label: 'Portfolio',      href: '#portfolio',      icon: 'FiLayers' },
+    { label: 'Contact',        href: '#contact',        icon: 'FiMail' },
   ],
 
   hero: {
@@ -42,14 +44,27 @@ export const portfolioData = {
     ],
   },
 
-  modelConfig: {
-    modelPath: '/models/character.glb',
-    cameraPosition: [0, 0.5, 5],
-    ambientLightIntensity: 0.6,
-    directionalLightIntensity: 1.8,
-  },
+  // ── Tech Stack for Continuous Marquee ──────────────────────────────────────
+  techStack: [
+    { name: 'React.js',          category: 'Frontend',   color: '#61DAFB' },
+    { name: 'Next.js',           category: 'Full-Stack', color: '#FFFFFF' },
+    { name: 'Google Gemini AI',  category: 'AI & ML',    color: '#00F2FE' },
+    { name: 'Node.js',           category: 'Backend',    color: '#68A063' },
+    { name: 'Express.js',        category: 'Backend',    color: '#E0E0E0' },
+    { name: 'Java',              category: 'Backend',    color: '#E76F00' },
+    { name: 'Spring Boot',       category: 'Backend',    color: '#6DB33F' },
+    { name: 'JavaScript (ES6+)', category: 'Language',   color: '#F7DF1E' },
+    { name: 'TypeScript',        category: 'Language',   color: '#3178C6' },
+    { name: 'MongoDB',           category: 'Database',   color: '#47A248' },
+    { name: 'MySQL',             category: 'Database',   color: '#4479A1' },
+    { name: 'Tailwind CSS',      category: 'Styling',    color: '#38BDF8' },
+    { name: 'Three.js',          category: '3D Graphics',color: '#00F2FE' },
+    { name: 'Git & GitHub',      category: 'DevOps',     color: '#F05032' },
+    { name: 'Postman',           category: 'API Testing',color: '#FF6C37' },
+    { name: 'Vercel',            category: 'Deployment', color: '#FFFFFF' },
+  ],
 
-  // ── About ─────────────────────────────────────────────────────────────────────
+  // ── About ───────────────────────────────────────────────────────────────────
   about: {
     tagline: 'About Me',
     headline: 'Building Intelligent\nFull-Stack Software',
@@ -97,6 +112,54 @@ export const portfolioData = {
       download: true,
     },
   },
+
+  // ── Certifications & Credentials ──────────────────────────────────────────
+  certifications: [
+    {
+      id: 'cert-1',
+      title: 'Generative AI & Google Gemini API Integration',
+      issuer: 'Google Cloud & AI Communities',
+      issueDate: '2024',
+      badge: 'AI & Machine Learning',
+      status: 'Verified Credential',
+      skills: ['Google Gemini API', 'Prompt Engineering', 'AI Chatbots', 'LLM Integration'],
+      link: 'https://github.com/BOZKO-ai',
+      accentColor: '#00f2fe',
+    },
+    {
+      id: 'cert-2',
+      title: 'Higher National Diploma in Information Technology (HNDIT)',
+      issuer: 'SLIATE (Sri Lanka Advanced Technological Institute)',
+      issueDate: '2024 – 2026',
+      badge: 'Academic Distinction • GPA 3.67',
+      status: 'Academic Qualification',
+      skills: ['Software Engineering', 'Data Structures', 'OOP in Java', 'Relational Databases', 'Web Development'],
+      link: '#about',
+      accentColor: '#0a63ff',
+    },
+    {
+      id: 'cert-3',
+      title: 'Full-Stack Web Development (MERN Stack)',
+      issuer: 'Advanced Web Engineering Certificate',
+      issueDate: '2024',
+      badge: 'Full-Stack Specialization',
+      status: 'Verified Credential',
+      skills: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'JWT Auth'],
+      link: 'https://github.com/BOZKO-ai',
+      accentColor: '#38ef7d',
+    },
+    {
+      id: 'cert-4',
+      title: 'Java Enterprise & Spring Boot Development',
+      issuer: 'Java Software Development Certification',
+      issueDate: '2024',
+      badge: 'Backend Architecture',
+      status: 'Verified Credential',
+      skills: ['Java SE / EE', 'Spring Boot', 'MVC Pattern', 'MySQL', 'Hibernate / JPA'],
+      link: 'https://github.com/BOZKO-ai',
+      accentColor: '#f59e0b',
+    },
+  ],
 
   // ── Portfolio / Projects ──────────────────────────────────────────────────────
   projects: [

@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Cursor Follower Styling
+   ========================================================================== */
+
+.cursor-follower-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.cursor-glow-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 242, 254, 0.45);
+  background: radial-gradient(circle, rgba(10, 99, 255, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  transition: width 0.22s ease, height 0.22s ease, margin 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+  box-shadow: 0 0 16px rgba(10, 99, 255, 0.35);
+}
+
+.cursor-glow-ring.is-hover {
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+  border-color: rgba(0, 242, 254, 0.85);
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.2) 0%, transparent 70%);
+  box-shadow: 0 0 24px rgba(0, 242, 254, 0.55);
+}
+
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: #00f2fe;
+  box-shadow: 0 0 8px #00f2fe;
+  pointer-events: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.cursor-dot.is-hover {
+  transform: scale(1.6);
+  background: #ffffff;
+  box-shadow: 0 0 10px #00f2fe, 0 0 16px #0a63ff;
+}

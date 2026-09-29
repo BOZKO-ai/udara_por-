@@ -1,26 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
-import { FiDownload } from 'react-icons/fi';
+import {
+  FiHome,
+  FiUser,
+  FiCpu,
+  FiAward,
+  FiLayers,
+  FiMail,
+  FiDownload,
+} from 'react-icons/fi';
 import './Navbar.css';
+
+const NAV_ICONS = {
+  'Home': <FiHome className="nav-item-icon" />,
+  'About': <FiUser className="nav-item-icon" />,
+  'Tech Stack': <FiCpu className="nav-item-icon" />,
+  'Certifications': <FiAward className="nav-item-icon" />,
+  'Portfolio': <FiLayers className="nav-item-icon" />,
+  'Contact': <FiMail className="nav-item-icon" />,
+};
 
 /**
  * Navbar component for the portfolio header.
- * - Positioned absolutely at top with transparent backdrop.
- * - Features the blue code icon + brand name on the left.
- * - Desktop links with dropdown support on "Pages" and a hamburger icon.
- * - Fully responsive: collapses links into an interactive mobile drawer.
+ * - Positioned with blurred glassmorphism backdrop.
+ * - Branded with code icon and name.
+ * - Navigation links enhanced with individual tech & section icons.
+ * - Responsive mobile drawer with icon list.
  */
 export default function Navbar({ brand, navLinks = [] }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Optional: add subtle blur when scrolling down
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -43,7 +59,7 @@ export default function Navbar({ brand, navLinks = [] }) {
             <span className="code-slash">/</span>
             <span className="code-bracket">&gt;</span>
           </span>
-          <span className="brand-name">{brand?.name || 'Developer X'}</span>
+          <span className="brand-name">{brand?.name || 'UDARA LAKSHAN'}</span>
         </a>
 
         {/* Right: Desktop Navigation + Hamburger */}
@@ -64,6 +80,7 @@ export default function Navbar({ brand, navLinks = [] }) {
                         onClick={() => setDropdownOpen((prev) => !prev)}
                         aria-expanded={dropdownOpen}
                       >
+                        {NAV_ICONS[item.label]}
                         <span>{item.label}</span>
                         <FaChevronDown className={`chevron-icon ${dropdownOpen ? 'rotated' : ''}`} />
                       </button>
@@ -92,7 +109,8 @@ export default function Navbar({ brand, navLinks = [] }) {
                       href={item.href}
                       className={`nav-link ${item.label === 'Home' ? 'active' : ''}`}
                     >
-                      {item.label}
+                      {NAV_ICONS[item.label]}
+                      <span>{item.label}</span>
                     </a>
                   </li>
                 );
@@ -131,40 +149,14 @@ export default function Navbar({ brand, navLinks = [] }) {
           <ul className="mobile-nav-list">
             {navLinks.map((item, index) => (
               <li key={index} className="mobile-nav-item">
-                {item.hasDropdown ? (
-                  <div className="mobile-dropdown-group">
-                    <button
-                      className="mobile-nav-link dropdown-header"
-                      onClick={() => setDropdownOpen((prev) => !prev)}
-                    >
-                      <span>{item.label}</span>
-                      <FaChevronDown className={`chevron-icon ${dropdownOpen ? 'rotated' : ''}`} />
-                    </button>
-                    {dropdownOpen && (
-                      <ul className="mobile-sublist">
-                        {item.dropdownItems?.map((subItem, subIdx) => (
-                          <li key={subIdx}>
-                            <a
-                              href={subItem.href}
-                              className="mobile-sublink"
-                              onClick={closeMobileMenu}
-                            >
-                              {subItem.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ) : (
-                  <a
-                    href={item.href}
-                    className={`mobile-nav-link ${item.label === 'Home' ? 'active' : ''}`}
-                    onClick={closeMobileMenu}
-                  >
-                    {item.label}
-                  </a>
-                )}
+                <a
+                  href={item.href}
+                  className={`mobile-nav-link ${item.label === 'Home' ? 'active' : ''}`}
+                  onClick={closeMobileMenu}
+                >
+                  {NAV_ICONS[item.label]}
+                  <span>{item.label}</span>
+                </a>
               </li>
             ))}
             <li className="mobile-nav-item" style={{ marginTop: '1.25rem' }}>
