@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Design System Variables & Design Tokens
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --bg-primary: #12141c;
+  --bg-secondary: #181b26;
+  --bg-card: rgba(24, 27, 38, 0.7);
+  --bg-overlay: rgba(18, 20, 28, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.03);
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #9aa0b4;
+  --text-muted: #6b7280;
+  
+  /* Brand & Accent Colors */
+  --accent-blue: #0a63ff;
+  --accent-blue-hover: #2575fc;
+  --accent-blue-glow: rgba(10, 99, 255, 0.35);
+  --accent-blue-subtle: rgba(10, 99, 255, 0.12);
+
+  /* Borders & Dividers */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(154, 160, 180, 0.15);
+  --border-active: rgba(10, 99, 255, 0.5);
+
+  /* Typography */
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  /* Layout & Spacing */
+  --nav-height: 88px;
+  --max-width: 1440px;
+  --content-padding-x: clamp(1.5rem, 5vw, 4rem);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Elevations & Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 20px rgba(10, 99, 255, 0.4);
+}

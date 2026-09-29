@@ -1,0 +1,321 @@
+/* ==========================================================================
+   Interactive Portrait (2.5D Tilt, Glow Halo, Floating Badges)
+   ========================================================================== */
+
+.portrait-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  pointer-events: auto;
+}
+
+/* ── Ambient Background Glows ── */
+.portrait-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.portrait-glow-primary {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(10, 99, 255, 0.4) 0%, rgba(10, 99, 255, 0) 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+}
+
+.portrait-glow-secondary {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(127, 0, 255, 0.25) 0%, rgba(127, 0, 255, 0) 70%);
+  top: 45%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+}
+
+/* ── Animated Cyber Tech Rings ── */
+.cyber-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(10, 99, 255, 0.2);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ring-outer {
+  width: 490px;
+  height: 490px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  animation: spin-slow 35s linear infinite;
+  border-top-color: rgba(10, 99, 255, 0.5);
+  border-right-color: transparent;
+}
+
+.ring-inner {
+  width: 420px;
+  height: 420px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  animation: spin-reverse 25s linear infinite;
+  border-bottom-color: rgba(79, 172, 254, 0.4);
+  border-left-color: transparent;
+}
+
+@keyframes spin-slow {
+  from { transform: translate(-50%, -52%) rotate(0deg); }
+  to   { transform: translate(-50%, -52%) rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: translate(-50%, -52%) rotate(360deg); }
+  to   { transform: translate(-50%, -52%) rotate(0deg); }
+}
+
+/* ── 3D Tilt Card ── */
+.portrait-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  will-change: transform;
+}
+
+/* Glow halo behind head */
+.head-halo {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(10, 99, 255, 0.35) 0%, rgba(10, 99, 255, 0.1) 45%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(25px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Image wrapper */
+.portrait-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
+  overflow: visible;
+}
+
+.portrait-img {
+  width: auto;
+  max-width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 20px;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.7))
+          drop-shadow(0 0 45px rgba(10, 99, 255, 0.25));
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Smooth bottom fade mask */
+  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 98%);
+}
+
+/* Dark gradient overlay blending edges */
+.portrait-vignette-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(18, 20, 28, 0.8) 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ── Floating Tech Badges (Glassmorphism) ── */
+.floating-tech-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: rgba(24, 27, 38, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(10, 99, 255, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 5;
+  pointer-events: auto;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.floating-tech-badge:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(10, 99, 255, 0.4);
+}
+
+.badge-gemini {
+  top: 18%;
+  right: -25px;
+  border-left: 3px solid #38ef7d;
+}
+
+.badge-stack {
+  bottom: 22%;
+  left: -35px;
+  border-left: 3px solid var(--accent-blue);
+}
+
+.badge-icons-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.badge-icon {
+  display: inline-flex;
+  font-size: 1.25rem;
+}
+
+.icon-gemini {
+  color: #38ef7d;
+}
+
+.icon-react {
+  color: #61dafb;
+}
+
+.icon-node {
+  color: #68a063;
+}
+
+.badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-title {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.badge-sub {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+/* ── Status Pill ── */
+.portrait-status-pill {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.95rem;
+  background: rgba(18, 20, 28, 0.85);
+  border: 1px solid rgba(56, 239, 125, 0.3);
+  border-radius: 30px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.status-dot-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #38ef7d;
+  box-shadow: 0 0 10px #38ef7d;
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 239, 125, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(56, 239, 125, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 239, 125, 0); }
+}
+
+.status-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #38ef7d;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Responsive adjustments ── */
+@media (max-width: 1024px) {
+  .portrait-card {
+    max-width: 360px;
+    height: 480px;
+  }
+  .portrait-img {
+    max-height: 460px;
+  }
+  .badge-gemini {
+    right: 0px;
+  }
+  .badge-stack {
+    left: -10px;
+  }
+  .ring-outer {
+    width: 400px;
+    height: 400px;
+  }
+  .ring-inner {
+    width: 340px;
+    height: 340px;
+  }
+}
+
+@media (max-width: 768px) {
+  .portrait-scene {
+    min-height: 440px;
+  }
+  .portrait-card {
+    max-width: 300px;
+    height: 400px;
+  }
+  .portrait-img {
+    max-height: 380px;
+  }
+  .badge-gemini, .badge-stack {
+    transform: scale(0.85) !important;
+  }
+  .badge-gemini {
+    right: -10px;
+    top: 10%;
+  }
+  .badge-stack {
+    left: -15px;
+    bottom: 12%;
+  }
+  .ring-outer, .ring-inner {
+    display: none;
+  }
+}

@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Hero Portrait — Clean, Minimal, Identical to Reference Screenshot
+   ========================================================================== */
+
+.hero-portrait-container {
+  position: absolute;
+  bottom: 0;
+  left: 52%;
+  transform: translateX(-50%);
+  height: 90vh;
+  max-height: 820px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Subtle atmospheric lighting behind silhouette */
+.hero-portrait-aura {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(10, 99, 255, 0.14) 0%, rgba(18, 20, 28, 0) 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Motion wrapper responding to mouse parallax */
+.hero-portrait-motion-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
+  will-change: transform;
+}
+
+/* Main portrait image */
+.hero-portrait-image {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Smooth mask dissolving into bottom dark page background */
+  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 98%);
+}
+
+/* Bottom fade overlay ensuring zero harsh edge at the bottom */
+.hero-portrait-bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(18, 20, 28, 0.85) 45%, transparent 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .hero-portrait-container {
+    left: 54%;
+    height: 82vh;
+    max-height: 720px;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-portrait-container {
+    left: 50%;
+    height: 75vh;
+    max-height: 640px;
+    max-width: 460px;
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-portrait-container {
+    position: relative;
+    left: auto;
+    transform: none;
+    height: 60vh;
+    min-height: 340px;
+    max-height: 460px;
+    max-width: 380px;
+    margin: 1.5rem auto 0;
+    order: 2;
+  }
+}
