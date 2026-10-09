@@ -1,15 +1,17 @@
 /* ==========================================================================
-   Cursor Follower Styling
+   Cinematic Cursor Follower — Electric Lime + Magnetic Morph
    ========================================================================== */
 
 .cursor-follower-container {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 999;
   overflow: hidden;
+  mix-blend-mode: normal;
 }
 
+/* ── OUTER GLOW RING ─────────────────────────────────────────────────── */
 .cursor-glow-ring {
   position: absolute;
   top: 0;
@@ -19,40 +21,108 @@
   margin-top: -20px;
   margin-left: -20px;
   border-radius: 50%;
-  border: 1.5px solid rgba(0, 242, 254, 0.45);
-  background: radial-gradient(circle, rgba(10, 99, 255, 0.12) 0%, transparent 70%);
+  border: 1px solid rgba(184, 255, 0, 0.35);
+  background: radial-gradient(
+    circle,
+    rgba(184, 255, 0, 0.08) 0%,
+    transparent 75%
+  );
   pointer-events: none;
-  transition: width 0.22s ease, height 0.22s ease, margin 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-  box-shadow: 0 0 16px rgba(10, 99, 255, 0.35);
+  transition:
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background 0.3s ease,
+    border-radius 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+/* Hover state — expands & sharpens */
 .cursor-glow-ring.is-hover {
   width: 60px;
   height: 60px;
   margin-top: -30px;
   margin-left: -30px;
-  border-color: rgba(0, 242, 254, 0.85);
-  background: radial-gradient(circle, rgba(0, 242, 254, 0.2) 0%, transparent 70%);
-  box-shadow: 0 0 24px rgba(0, 242, 254, 0.55);
+  border-color: var(--accent-lime, #b8ff00);
+  border-radius: 12px;
+  background: radial-gradient(
+    circle,
+    rgba(184, 255, 0, 0.18) 0%,
+    transparent 75%
+  );
+  box-shadow: 0 0 24px rgba(184, 255, 0, 0.3);
 }
 
+/* ── INNER LASER DOT ─────────────────────────────────────────────────── */
 .cursor-dot {
   position: absolute;
   top: 0;
   left: 0;
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
-  margin-left: -3px;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  margin-left: -2.5px;
   border-radius: 50%;
-  background: #00f2fe;
-  box-shadow: 0 0 8px #00f2fe;
+  background: var(--accent-lime, #b8ff00);
+  box-shadow: 0 0 10px rgba(184, 255, 0, 0.8);
   pointer-events: none;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .cursor-dot.is-hover {
-  transform: scale(1.6);
-  background: #ffffff;
-  box-shadow: 0 0 10px #00f2fe, 0 0 16px #0a63ff;
+  transform: scale(0);
+  opacity: 0;
 }
+
+/* ── CROSSHAIR INNER RING (appears on hover) ─────────────────────────── */
+.cursor-glow-ring.is-hover::before,
+.cursor-glow-ring.is-hover::after {
+  content: '';
+  position: absolute;
+  background: var(--accent-lime, #b8ff00);
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  opacity: 0.6;
+}
+
+.cursor-glow-ring.is-hover::before {
+  width: 10px;
+  height: 1px;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-glow-ring.is-hover::after {
+  width: 1px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+}
+
+@media (pointer: coarse), (max-width: 1024px) {
+  .cursor-follower-container {
+    display: none;
+  }
+}
+
+/* Light Mode Cursor Visibility Enhancements */
+[data-theme="light"] .cursor-glow-ring {
+  border-color: rgba(22, 163, 74, 0.45);
+  background: radial-gradient(circle, rgba(22, 163, 74, 0.1) 0%, transparent 75%);
+}
+
+[data-theme="light"] .cursor-glow-ring.is-hover {
+  border-color: var(--accent-lime);
+  background: radial-gradient(circle, rgba(22, 163, 74, 0.2) 0%, transparent 75%);
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.35);
+}
+
+[data-theme="light"] .cursor-dot {
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.9);
+}
+

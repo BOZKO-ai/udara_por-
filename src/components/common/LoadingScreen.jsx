@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './LoadingScreen.css';
 
-const LOG_MESSAGES = [
-  'INITIALIZING SYSTEM ARCHITECTURE...',
-  'COMPILING REACT 19 & THREE.JS ENGINE...',
+const FILM_PRODUCTION_LOGS = [
+  'INITIALIZING CINEMATIC EXPERIENCE...',
+  'CALIBRATING REACT 19 & THREE.JS ENGINE...',
   'SYNCHRONIZING GOOGLE GEMINI AI INTERFACES...',
-  'CALIBRATING 3D VIEWPORT & RENDERING PIPELINE...',
-  'ACCESS GRANTED // PORTFOLIO ONLINE',
+  'DIRECTED BY UDARA LAKSHAN // SLIATE KANDY',
+  'PRODUCTION READY // OPENING SCENE 00',
 ];
 
 export default function LoadingScreen({ onComplete }) {
@@ -16,9 +16,8 @@ export default function LoadingScreen({ onComplete }) {
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    // Smooth progress counter from 0 to 100%
     const startTime = Date.now();
-    const duration = 1800; // 1.8 seconds total duration
+    const duration = 1600; // 1.6s swift, elegant film title intro
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -28,7 +27,7 @@ export default function LoadingScreen({ onComplete }) {
       if (pct < 25) setLogIndex(0);
       else if (pct < 50) setLogIndex(1);
       else if (pct < 75) setLogIndex(2);
-      else if (pct < 98) setLogIndex(3);
+      else if (pct < 95) setLogIndex(3);
       else setLogIndex(4);
 
       if (pct >= 100) {
@@ -36,9 +35,9 @@ export default function LoadingScreen({ onComplete }) {
         setTimeout(() => {
           setIsFinished(true);
           if (onComplete) onComplete();
-        }, 350);
+        }, 300);
       }
-    }, 24);
+    }, 20);
 
     return () => clearInterval(interval);
   }, [onComplete]);
@@ -47,78 +46,46 @@ export default function LoadingScreen({ onComplete }) {
     <AnimatePresence>
       {!isFinished && (
         <motion.div
-          className="cyber-loader-container"
+          className="cinema-loader-wrapper"
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.04,
-            filter: 'blur(10px)',
-            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+            scale: 1.05,
+            filter: 'blur(12px)',
+            transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
           }}
         >
-          {/* Cyber grid background */}
-          <div className="loader-grid-bg" />
-          <div className="loader-glow-orb loader-glow-orb--1" />
-          <div className="loader-glow-orb loader-glow-orb--2" />
+          <div className="loader-ambient-glow" />
 
-          {/* Central HUD Card */}
-          <div className="loader-card">
-            {/* Tech Corner Accents */}
-            <div className="hud-corner hud-corner--tl" />
-            <div className="hud-corner hud-corner--tr" />
-            <div className="hud-corner hud-corner--bl" />
-            <div className="hud-corner hud-corner--br" />
+          <div className="cinema-loader-card">
+            {/* Film Frame Corner Accents */}
+            <div className="cinema-corner-mark mark-tl" />
+            <div className="cinema-corner-mark mark-tr" />
+            <div className="cinema-corner-mark mark-bl" />
+            <div className="cinema-corner-mark mark-br" />
 
-            {/* Glowing Brand Icon */}
-            <div className="loader-brand-icon">
-              <span className="loader-bracket">&lt;</span>
-              <span className="loader-slash">/</span>
-              <span className="loader-bracket">&gt;</span>
+            {/* Rec Badge */}
+            <div className="loader-rec-line">
+              <span className="loader-rec-dot" />
+              <span className="loader-rec-label">A DEVELOPER'S ODYSSEY</span>
+              <span className="loader-year">2026</span>
             </div>
 
-            <h1 className="loader-title">UDARA LAKSHAN</h1>
-            <p className="loader-subtitle">FULL-STACK DEVELOPER &amp; AI INTEGRATOR</p>
+            <h1 className="loader-film-title">UDARA LAKSHAN</h1>
+            <p className="loader-film-role">FULL-STACK DEVELOPER &amp; AI INTEGRATOR</p>
 
-            {/* Cyber Ring Spinner */}
-            <div className="loader-ring-wrapper">
-              <div className="loader-ring loader-ring--outer" />
-              <div className="loader-ring loader-ring--inner" />
-              <div className="loader-counter">
-                <span className="loader-counter-val">{progress}</span>
-                <span className="loader-counter-unit">%</span>
-              </div>
-            </div>
-
-            {/* Progress Bar with Laser Glow */}
-            <div className="loader-track">
+            {/* Progress Bar with Gold Glow */}
+            <div className="loader-film-track">
               <motion.div
-                className="loader-fill"
+                className="loader-film-fill"
                 style={{ width: `${progress}%` }}
               />
-              <div
-                className="loader-laser-head"
-                style={{ left: `${progress}%` }}
-              />
             </div>
 
-            {/* Live Terminal Log */}
-            <div className="loader-log-box">
-              <span className="loader-log-prompt">&gt;</span>
-              <span className="loader-log-text">{LOG_MESSAGES[logIndex]}</span>
-              <span className="loader-cursor">_</span>
-            </div>
-
-            {/* System Status Indicators */}
-            <div className="loader-status-row">
-              <span className="status-pill status-pill--active">
-                <span className="status-dot" /> SYSTEM V2.4
-              </span>
-              <span className="status-pill">
-                SLIATE HNDIT 3.67 GPA
-              </span>
-              <span className="status-pill status-pill--gemini">
-                GEMINI AI READY
-              </span>
+            {/* Meta Row */}
+            <div className="loader-meta-strip">
+              <span className="loader-log-message">&gt; {FILM_PRODUCTION_LOGS[logIndex]}</span>
+              <span className="loader-percentage">{progress}%</span>
             </div>
           </div>
         </motion.div>

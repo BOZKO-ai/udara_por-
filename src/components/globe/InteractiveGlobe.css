@@ -1,0 +1,369 @@
+/* ==========================================================================
+   Chapter 03: The Digital World — Earth Globe Section
+   ========================================================================== */
+
+.chapter-globe-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 6rem 0 7rem;
+  overflow: hidden;
+  background: transparent;
+}
+
+.globe-ambient-glow {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184, 255, 0, 0.06) 0%, rgba(56, 189, 248, 0.04) 40%, transparent 70%);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.chapter-globe-container {
+  max-width: var(--max-width, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+  position: relative;
+  z-index: 5;
+}
+
+.globe-showcase-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* ── 3D Canvas Stage ─────────────────────────────────────────────────────── */
+.globe-canvas-stage {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(10, 15, 28, 0.97) 0%,
+    rgba(4, 6, 14, 0.99) 100%
+  );
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-sm),
+    0 0 0 1px rgba(184, 255, 0, 0.06),
+    0 30px 80px rgba(0, 0, 0, 0.7);
+  cursor: grab;
+}
+
+.globe-canvas-stage:active {
+  cursor: grabbing;
+}
+
+.globe-canvas-mount {
+  width: 100%;
+  height: 100%;
+}
+
+.globe-canvas-mount canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* ── Loading Overlay ─────────────────────────────────────────────────────── */
+.globe-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.globe-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(184, 255, 0, 0.15);
+  border-top-color: var(--accent-lime);
+  animation: globeSpin 0.9s linear infinite;
+}
+
+@keyframes globeSpin {
+  to { transform: rotate(360deg); }
+}
+
+.globe-loading-text {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-lime);
+  opacity: 0.7;
+}
+
+/* ── HUD Overlay ─────────────────────────────────────────────────────────── */
+.globe-hud-overlay {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: rgba(6, 8, 16, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(184, 255, 0, 0.14);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.hud-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hud-pulse-lime {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+  animation: chapterDotPulse 1.6s infinite;
+}
+
+.hud-text {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-lime);
+}
+
+.hud-coords {
+  display: flex;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+  color: rgba(184, 255, 0, 0.55);
+}
+
+/* ── Sri Lanka Badge ─────────────────────────────────────────────────────── */
+.globe-sl-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.38rem 0.85rem;
+  background: rgba(184, 255, 0, 0.08);
+  border: 1px solid rgba(184, 255, 0, 0.3);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+
+.sl-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+  animation: chapterDotPulse 1.8s ease-in-out infinite;
+}
+
+.sl-badge-text {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-lime);
+}
+
+/* ── Metrics Column ──────────────────────────────────────────────────────── */
+.globe-metrics-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.globe-metric-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.15rem;
+  padding: 1.35rem 1.5rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.globe-metric-card:hover {
+  border-color: rgba(184, 255, 0, 0.35);
+  background: var(--bg-card-hover);
+  transform: translateX(5px);
+  box-shadow: var(--shadow-lime);
+}
+
+.metric-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(184, 255, 0, 0.08);
+  border: 1px solid rgba(184, 255, 0, 0.3);
+  color: var(--accent-lime);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-lime);
+  margin-bottom: 0.18rem;
+}
+
+.metric-title {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
+}
+
+.metric-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── Connection Stats Strip ──────────────────────────────────────────────── */
+.globe-connection-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+}
+
+.connection-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.conn-stat-val {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-lime);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.conn-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ── Light Mode ──────────────────────────────────────────────────────────── */
+[data-theme="light"] .globe-canvas-stage {
+  background: radial-gradient(circle at 50% 50%, #0a0f1c 0%, #040608 100%);
+  border-color: rgba(22, 163, 74, 0.2);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(22, 163, 74, 0.08);
+}
+
+[data-theme="light"] .globe-hud-overlay {
+  background: rgba(4, 6, 14, 0.88);
+  border-color: rgba(22, 163, 74, 0.2);
+}
+
+[data-theme="light"] .globe-sl-badge {
+  background: rgba(22, 163, 74, 0.1);
+  border-color: rgba(22, 163, 74, 0.35);
+}
+
+[data-theme="light"] .globe-metric-card:hover {
+  border-color: rgba(22, 163, 74, 0.3);
+  box-shadow: var(--shadow-lime);
+}
+
+[data-theme="light"] .globe-connection-strip {
+  background: var(--bg-card);
+  border-color: rgba(22, 163, 74, 0.2);
+}
+
+[data-theme="light"] .metric-icon-box {
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .globe-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .globe-canvas-stage {
+    height: 460px;
+  }
+}
+
+@media (max-width: 640px) {
+  .globe-canvas-stage {
+    height: 360px;
+    border-radius: 18px;
+  }
+  .globe-hud-overlay {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 0.5rem 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    right: 0.75rem;
+  }
+  .globe-connection-strip {
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .globe-sl-badge {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}

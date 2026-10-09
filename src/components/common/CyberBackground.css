@@ -1,8 +1,8 @@
 /* ==========================================================================
-   Cyber Background Styles (Back Animation System)
+   Cinematic Atmospheric Background & Orbs
    ========================================================================== */
 
-.cyber-bg-wrapper {
+.cinema-bg-wrapper {
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -10,95 +10,99 @@
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background-color: var(--bg-primary, #12141c);
+  background-color: var(--bg-primary);
 }
 
-.cyber-bg-canvas {
+.cinema-bg-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
-  pointer-events: auto; /* allows interactive mouse reaction */
+  z-index: 1;
 }
 
-/* Subtle digital cyber grid */
-.cyber-bg-grid {
+.cinema-bg-grid {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 85%);
-  -webkit-mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 85%);
+  background-image:
+    linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.6;
+  z-index: 2;
 }
 
-/* Atmospheric ambient neon orbs with slow morphing & breathing */
-.cyber-orb {
+/* Atmospheric Luminous Orbs */
+.cinema-ambient-orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.55;
-  will-change: transform;
+  opacity: 0.28;
+  z-index: 1;
 }
 
-.cyber-orb--blue {
-  width: 650px;
-  height: 650px;
-  top: -10%;
+.cinema-orb--gold {
+  top: 10%;
   left: 20%;
-  background: radial-gradient(circle, rgba(10, 99, 255, 0.28) 0%, transparent 70%);
-  animation: float-orb-1 18s ease-in-out infinite alternate;
-}
-
-.cyber-orb--cyan {
-  width: 550px;
-  height: 550px;
-  top: 40%;
-  right: -5%;
-  background: radial-gradient(circle, rgba(0, 242, 254, 0.18) 0%, transparent 70%);
-  animation: float-orb-2 15s ease-in-out infinite alternate-reverse;
-}
-
-.cyber-orb--purple {
   width: 500px;
   height: 500px;
-  bottom: -10%;
-  left: 10%;
-  background: radial-gradient(circle, rgba(127, 0, 255, 0.16) 0%, transparent 70%);
-  animation: float-orb-3 20s ease-in-out infinite alternate;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, transparent 70%);
+  animation: floatOrb 22s ease-in-out infinite alternate;
 }
 
-@keyframes float-orb-1 {
+.cinema-orb--amber {
+  bottom: 15%;
+  right: 15%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(243, 208, 130, 0.35) 0%, transparent 70%);
+  animation: floatOrb 28s ease-in-out infinite alternate-reverse;
+}
+
+.cinema-orb--cyan {
+  top: 50%;
+  left: 55%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+  opacity: 0.15;
+  animation: floatOrb 32s ease-in-out infinite alternate;
+}
+
+@keyframes floatOrb {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, 80px) scale(1.12); }
-  100% { transform: translate(-40px, 40px) scale(0.92); }
+  50% { transform: translate(40px, -30px) scale(1.08); }
+  100% { transform: translate(-30px, 40px) scale(0.95); }
 }
 
-@keyframes float-orb-2 {
-  0% { transform: translate(0, 0) scale(0.95); }
-  50% { transform: translate(-80px, -50px) scale(1.15); }
-  100% { transform: translate(30px, 60px) scale(1); }
-}
-
-@keyframes float-orb-3 {
-  0% { transform: translate(0, 0) scale(1.05); }
-  50% { transform: translate(70px, -60px) scale(0.9); }
-  100% { transform: translate(-50px, -20px) scale(1.1); }
-}
-
-/* Vignette around window borders */
-.cyber-bg-vignette {
+.cinema-bg-vignette {
   position: absolute;
   inset: 0;
-  z-index: 3;
   background: radial-gradient(
-    circle at center,
+    ellipse at center,
     transparent 45%,
-    rgba(14, 16, 24, 0.65) 90%,
-    rgba(11, 13, 20, 0.95) 100%
+    rgba(var(--hero-vignette-rgb, 7, 7, 9), 0.45) 85%,
+    var(--bg-primary) 100%
   );
-  pointer-events: none;
+  z-index: 3;
 }
+
+/* Light Mode Harmonized Atmosphere */
+[data-theme="light"] .cinema-ambient-orb {
+  opacity: 0.14;
+  filter: blur(140px);
+}
+
+[data-theme="light"] .cinema-orb--gold {
+  background: radial-gradient(circle, rgba(22, 163, 74, 0.35) 0%, transparent 70%);
+}
+
+[data-theme="light"] .cinema-orb--amber {
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.28) 0%, transparent 70%);
+}
+
+[data-theme="light"] .cinema-orb--cyan {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.25) 0%, transparent 70%);
+  opacity: 0.12;
+}
+

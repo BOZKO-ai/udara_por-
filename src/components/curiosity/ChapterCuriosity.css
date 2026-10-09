@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Chapter 05: Curiosity & Philosophy Section
+   ========================================================================== */
+
+.chapter-curiosity-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 6rem 0 7rem;
+  overflow: hidden;
+  background: transparent;
+}
+
+.curiosity-ambient-glow {
+  position: absolute;
+  top: 25%;
+  right: 15%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184, 255, 0, 0.08) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.chapter-curiosity-container {
+  max-width: var(--max-width, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+  position: relative;
+  z-index: 5;
+}
+
+.curiosity-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.curiosity-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.curiosity-card:hover {
+  border-color: var(--accent-lime);
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-md), var(--shadow-lime);
+}
+
+.curiosity-card.active {
+  border-color: var(--accent-lime);
+  background: linear-gradient(135deg, var(--accent-lime-subtle), var(--bg-card));
+  box-shadow: var(--shadow-md), var(--shadow-lime);
+}
+
+.card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.pillar-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent-lime);
+  background: rgba(184, 255, 0, 0.1);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.pillar-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.pillar-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(184, 255, 0, 0.1);
+  border: 1px solid rgba(184, 255, 0, 0.35);
+  color: var(--accent-lime);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.curiosity-card:hover .pillar-icon-box {
+  background: var(--accent-lime);
+  color: #070709;
+  box-shadow: 0 0 20px var(--accent-lime-glow);
+}
+
+.pillar-title {
+  font-family: var(--font-editorial);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.pillar-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+  flex: 1;
+}
+
+.pillar-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.pillar-focus-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--accent-lime);
+}
+
+.pillar-focus-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .curiosity-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

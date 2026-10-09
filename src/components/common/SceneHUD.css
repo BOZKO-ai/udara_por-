@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Editorial Scene HUD (Vertical Progress Rail with Lime Accent)
+   ========================================================================== */
+
+.scene-hud {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 2.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  pointer-events: auto;
+}
+
+/* Vertical Progress Rail */
+.hud-rail {
+  width: 2px;
+  height: 240px;
+  background: var(--border-color);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hud-rail-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 10px var(--accent-lime);
+  transition: height 0.15s ease-out;
+}
+
+/* Scenes List */
+.hud-scenes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hud-scene-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  padding: 0.2rem 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.hud-scene-num {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.hud-scene-line {
+  width: 12px;
+  height: 1px;
+  background: var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.hud-scene-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+/* Hover State */
+.hud-scene-btn:hover .hud-scene-label {
+  opacity: 0.85;
+  transform: translateX(0);
+  color: var(--text-primary);
+}
+
+.hud-scene-btn:hover .hud-scene-num {
+  opacity: 1;
+  color: var(--accent-lime);
+}
+
+.hud-scene-btn:hover .hud-scene-line {
+  width: 22px;
+  background: var(--accent-lime);
+}
+
+/* Active State */
+.hud-scene-btn.active {
+  color: var(--accent-lime);
+}
+
+.hud-scene-btn.active .hud-scene-num {
+  opacity: 1;
+  color: var(--accent-lime);
+  font-weight: 800;
+  text-shadow: 0 0 12px var(--accent-lime-glow);
+}
+
+.hud-scene-btn.active .hud-scene-line {
+  width: 26px;
+  height: 2px;
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+}
+
+.hud-scene-btn.active .hud-scene-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Hide on mobile */
+@media (max-width: 1024px) {
+  .scene-hud {
+    display: none;
+  }
+}

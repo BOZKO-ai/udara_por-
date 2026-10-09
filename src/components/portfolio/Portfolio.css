@@ -1,250 +1,580 @@
 /* ==========================================================================
-   Portfolio Section
+   Chapter 02: My Work (Cinematic Project Showcase)
    ========================================================================== */
 
-.portfolio-wrapper {
+.scene-portfolio-wrapper {
   position: relative;
-  background-color: var(--bg-primary);
-  padding: 8rem var(--content-padding-x);
+  width: 100%;
+  padding: 6rem 0 7rem;
   overflow: hidden;
+  background: transparent;
 }
 
-/* Reuse blob style from About, just repositioned */
-.portfolio-blob-left {
-  width: 450px;
-  height: 450px;
-  background: #7f00ff;
-  top: 50px;
-  left: -180px;
-  opacity: 0.08 !important;
+.port-glow-left {
+  top: 30%;
+  left: -150px;
+  background: radial-gradient(circle, rgba(184, 255, 0, 0.08) 0%, transparent 70%);
 }
 
-.portfolio-blob-right {
-  width: 500px;
-  height: 500px;
-  background: var(--accent-blue);
-  bottom: -80px;
-  right: -160px;
-  opacity: 0.1 !important;
+.port-glow-right {
+  bottom: 25%;
+  right: -150px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
 }
 
-.portfolio-container {
-  position: relative;
-  z-index: 1;
-  max-width: var(--max-width);
+.scene-portfolio-container {
+  max-width: var(--max-width, 1400px);
   margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+  position: relative;
+  z-index: 5;
 }
 
-.portfolio-headline {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+/* Category Filters */
+.cinema-portfolio-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 2.5rem;
-}
-
-/* ── Filter tabs ─────────────────────────────────────────────────────────────── */
-.portfolio-filters {
-  display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 3rem;
 }
 
-.filter-btn {
-  padding: 0.5rem 1.25rem;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  background: var(--bg-glass);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.filter-btn:hover {
-  border-color: var(--accent-blue);
-  color: var(--text-primary);
-}
-
-.filter-btn--active {
-  background: var(--accent-blue);
-  color: #fff;
-  border-color: var(--accent-blue);
-  box-shadow: 0 4px 16px var(--accent-blue-glow);
-}
-
-/* ── Project grid ────────────────────────────────────────────────────────────── */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-/* ── Project card ────────────────────────────────────────────────────────────── */
-.project-card {
-  display: flex;
-  flex-direction: column;
+.cinema-filter-btn {
+  padding: 0.5rem 1.15rem;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.25s ease;
+}
+
+.cinema-filter-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+  background: var(--bg-card-hover);
+}
+
+.cinema-filter-btn.active {
+  background: linear-gradient(135deg, rgba(184, 255, 0, 0.2), rgba(184, 255, 0, 0.08));
+  border-color: var(--accent-lime);
+  color: var(--accent-lime);
+  box-shadow: 0 0 16px rgba(184, 255, 0, 0.15);
+}
+
+/* Projects Grid */
+.cinema-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.cinema-project-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
   overflow: hidden;
-  backdrop-filter: blur(12px);
-  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
-  cursor: default;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-card:hover {
+.cinema-project-card:hover {
+  border-color: var(--accent-lime);
+  box-shadow: var(--shadow-md), var(--shadow-lime);
+  background: var(--bg-card-hover);
   transform: translateY(-6px);
-  border-color: rgba(10, 99, 255, 0.35);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* Thin gradient stripe at the top */
-.card-gradient-bar {
-  height: 4px;
-  width: 100%;
-  flex-shrink: 0;
-}
-
-/* Project preview image */
-.card-image-wrapper {
+/* Cinema Poster Image Frame */
+.cinema-poster-frame {
   position: relative;
   width: 100%;
-  height: 195px;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
-  background-color: #0b0d14;
+  background: #0d0e14;
 }
 
-.card-image {
+.cinema-poster-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  display: block;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-card:hover .card-image {
+.cinema-project-card:hover .cinema-poster-img {
   transform: scale(1.05);
 }
 
-.card-image-overlay {
+.cinema-poster-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #13151f 0%, #202334 100%);
+}
+
+.poster-top-bar {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(24, 27, 38, 0.95) 0%, rgba(24, 27, 38, 0.2) 50%, transparent 100%);
-  pointer-events: none;
-}
-
-.card-body {
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
   display: flex;
-  flex-direction: column;
-  padding: 1.6rem;
-  flex: 1;
-}
-
-.card-category {
-  font-size: 0.7rem;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-blue);
-  margin-bottom: 0.6rem;
-}
-
-.card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
-}
-
-.card-description {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.65;
-  flex: 1;
-  margin-bottom: 1.25rem;
-}
-
-/* Tag chips */
-.card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.4rem;
-}
-
-.card-tag {
-  padding: 0.22rem 0.65rem;
-  background: var(--bg-glass);
-  border: 1px solid var(--border-subtle);
-  border-radius: 50px;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-}
-
-/* Links row */
-.card-links {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: auto;
-}
-
-.card-link {
-  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  font-size: 0.78rem;
-  font-family: var(--font-heading);
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.poster-prod-num {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: rgba(7, 7, 9, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  color: var(--accent-lime);
+  border: 1px solid rgba(184, 255, 0, 0.3);
+}
+
+.poster-cat-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   font-weight: 600;
-  transition: all var(--transition-fast);
-}
-
-.card-link--primary {
-  background: var(--accent-blue);
-  color: #fff;
-  box-shadow: 0 4px 12px var(--accent-blue-glow);
-}
-
-.card-link--primary:hover {
-  background: var(--accent-blue-hover);
-  box-shadow: 0 6px 20px rgba(10, 99, 255, 0.5);
-  transform: translateY(-1px);
-}
-
-.card-link--ghost {
-  background: transparent;
+  background: rgba(7, 7, 9, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
 }
 
-.card-link--ghost:hover {
-  color: var(--text-primary);
-  border-color: var(--text-secondary);
-  transform: translateY(-1px);
+.poster-cinema-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(14, 16, 22, 0.95) 0%,
+    rgba(14, 16, 22, 0.3) 50%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* ── Responsive ─────────────────────────────────────────────────────────────── */
+.poster-expand-btn {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(7, 7, 9, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  z-index: 3;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.25s ease;
+}
+
+.cinema-project-card:hover .poster-expand-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.poster-expand-btn:hover {
+  background: var(--accent-lime);
+  color: #070709;
+  border-color: var(--accent-lime);
+}
+
+/* Card Body */
+.cinema-card-body {
+  padding: 1.5rem 1.75rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cinema-badge-line {
+  margin-bottom: 0.4rem;
+}
+
+.cinema-badge-text {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--accent-lime);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cinema-card-title {
+  font-family: var(--font-editorial);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
+}
+
+.cinema-card-role {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  margin-bottom: 0.75rem;
+}
+
+.role-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--accent-lime);
+}
+
+.role-text {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.cinema-card-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cinema-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.cinema-tag-chip {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.55rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+}
+
+/* Card Links */
+.cinema-card-links {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.cinema-btn-details {
+  padding: 0.55rem 0.85rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.cinema-btn-details:hover {
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+  background: var(--bg-card-hover);
+}
+
+.cinema-btn-primary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--accent-lime);
+  color: #070709;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px var(--accent-lime-glow);
+  transition: all 0.2s ease;
+}
+
+.cinema-btn-primary:hover {
+  background: #ffffff;
+  box-shadow: 0 6px 20px var(--accent-lime-glow);
+}
+
+.cinema-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.cinema-btn-ghost:hover {
+  border-color: var(--accent-lime);
+  color: var(--accent-lime);
+}
+
+/* ── MODAL VIEW ── */
+.cinema-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 5, 7, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.cinema-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg-card-solid);
+  border: 1px solid rgba(184, 255, 0, 0.35);
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg), var(--shadow-lime-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: var(--accent-lime);
+  color: #070709;
+}
+
+.modal-top-hero {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+}
+
+.modal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.modal-hero-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg-card-solid) 0%, rgba(14, 16, 22, 0.4) 60%, transparent 100%);
+}
+
+.modal-hero-titles {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 2rem;
+  right: 2rem;
+  z-index: 2;
+}
+
+.modal-prod-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-lime);
+}
+
+.modal-main-title {
+  font-family: var(--font-editorial);
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+}
+
+.modal-role-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+}
+
+.modal-body-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.modal-section-heading {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-lime);
+  margin-bottom: 0.75rem;
+}
+
+.modal-desc-text {
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.modal-contributions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-contrib-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+
+.modal-check-icon {
+  color: var(--accent-lime);
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.modal-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.modal-tech-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.35rem 0.8rem;
+  background: rgba(184, 255, 0, 0.08);
+  border: 1px solid rgba(184, 255, 0, 0.25);
+  color: var(--accent-lime);
+  border-radius: 6px;
+}
+
+.modal-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.modal-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 12px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.88rem;
+  transition: all 0.25s ease;
+}
+
+.modal-btn-gold {
+  background: var(--accent-lime);
+  color: #070709;
+  box-shadow: 0 4px 18px var(--accent-lime-glow);
+}
+
+.modal-btn-gold:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.modal-btn-ghost {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.modal-btn-ghost:hover {
+  border-color: var(--accent-lime);
+  color: var(--accent-lime);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
 @media (max-width: 1100px) {
-  .project-grid {
+  .cinema-projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 680px) {
-  .portfolio-wrapper {
-    padding: 5rem var(--content-padding-x);
+@media (max-width: 768px) {
+  .cinema-projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
   }
 
-  .project-grid {
-    grid-template-columns: 1fr;
+  .modal-top-hero {
+    height: 200px;
+  }
+
+  .modal-hero-titles {
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1rem;
+  }
+
+  .modal-body-content {
+    padding: 1.25rem;
   }
 }

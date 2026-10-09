@@ -1,30 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-  FaGithub,
-} from 'react-icons/fa';
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 const iconComponents = {
-  FaFacebookF: <FaFacebookF />,
-  FaTwitter: <FaTwitter />,
-  FaInstagram: <FaInstagram />,
   FaLinkedinIn: <FaLinkedinIn />,
-  FaYoutube: <FaYoutube />,
   FaGithub: <FaGithub />,
 };
 
-// ── Animation variants ────────────────────────────────────────────────────────
 const sideContainerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.5, // starts after the left column has entered
+      staggerChildren: 0.12,
+      delayChildren: 0.4,
     },
   },
 };
@@ -34,49 +23,62 @@ const blockVariant = {
   show: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
 export default function SideInfo({ aboutMe, myWork, followMe }) {
   return (
     <motion.aside
-      className="hero-right-content"
+      className="hero-cinema-side-content"
       variants={sideContainerVariants}
       initial="hidden"
       animate="show"
     >
-      {/* ABOUT ME Block */}
+      {/* SCENE 01 Preview Card */}
       {aboutMe && (
-        <motion.div className="hero-info-block" variants={blockVariant}>
-          <h2 className="info-block-heading">{aboutMe.title || 'ABOUT ME'}</h2>
-          <p className="info-block-text">{aboutMe.description}</p>
+        <motion.div className="cinema-scene-card" variants={blockVariant}>
+          <div className="scene-card-header">
+            <span className="scene-card-num">{aboutMe.sceneNum || 'SCENE 01'}</span>
+            <span className="scene-card-category">THE ORIGIN</span>
+          </div>
+          <h3 className="scene-card-title">{aboutMe.title || 'THE PROTAGONIST'}</h3>
+          <p className="scene-card-text">{aboutMe.description}</p>
           {aboutMe.linkText && (
-            <a href={aboutMe.href || '#about'} className="info-block-link">
-              {aboutMe.linkText}
+            <a href={aboutMe.href || '#about'} className="scene-card-link">
+              <span>{aboutMe.linkText}</span>
+              <FiArrowUpRight className="scene-link-arrow" />
             </a>
           )}
         </motion.div>
       )}
 
-      {/* MY WORK Block */}
+      {/* SCENE 03 Preview Card */}
       {myWork && (
-        <motion.div className="hero-info-block" variants={blockVariant}>
-          <h2 className="info-block-heading">{myWork.title || 'MY WORK'}</h2>
-          <p className="info-block-text">{myWork.description}</p>
+        <motion.div className="cinema-scene-card" variants={blockVariant}>
+          <div className="scene-card-header">
+            <span className="scene-card-num">{myWork.sceneNum || 'SCENE 03'}</span>
+            <span className="scene-card-category">PRODUCTIONS</span>
+          </div>
+          <h3 className="scene-card-title">{myWork.title || 'FEATURED WORK'}</h3>
+          <p className="scene-card-text">{myWork.description}</p>
           {myWork.linkText && (
-            <a href={myWork.href || '#portfolio'} className="info-block-link">
-              {myWork.linkText}
+            <a href={myWork.href || '#portfolio'} className="scene-card-link">
+              <span>{myWork.linkText}</span>
+              <FiArrowUpRight className="scene-link-arrow" />
             </a>
           )}
         </motion.div>
       )}
 
-      {/* FOLLOW ME Block */}
+      {/* CONNECT Block */}
       {followMe && (
-        <motion.div className="hero-info-block follow-me-block" variants={blockVariant}>
-          <h2 className="info-block-heading">{followMe.title || 'FOLLOW ME'}</h2>
-          <div className="hero-social-icons">
+        <motion.div className="cinema-scene-card cinema-connect-card" variants={blockVariant}>
+          <div className="scene-card-header">
+            <span className="scene-card-num">CONNECT</span>
+            <span className="scene-card-category">SOCIALS</span>
+          </div>
+          <div className="cinema-socials-row">
             {followMe.socials?.map((social, index) => (
               <a
                 key={index}
@@ -84,10 +86,12 @@ export default function SideInfo({ aboutMe, myWork, followMe }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.name}
-                className="social-icon-btn"
+                className="cinema-social-pill"
                 title={social.name}
               >
-                {iconComponents[social.icon] || social.name}
+                <span className="social-pill-icon">{iconComponents[social.icon] || <FaGithub />}</span>
+                <span className="social-pill-name">{social.name}</span>
+                <FiArrowUpRight className="social-pill-arrow" />
               </a>
             ))}
           </div>

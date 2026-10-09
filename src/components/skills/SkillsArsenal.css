@@ -1,0 +1,324 @@
+/* ==========================================================================
+   Scene 04: The Arsenal (Skills Console & Radar)
+   ========================================================================== */
+
+.scene-arsenal-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 6rem 0 7rem;
+  overflow: hidden;
+  background: transparent;
+}
+
+.arsenal-glow-left {
+  top: 20%;
+  left: -150px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+}
+
+.arsenal-glow-right {
+  bottom: 15%;
+  right: -150px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
+}
+
+.scene-arsenal-container {
+  max-width: var(--max-width, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+  position: relative;
+  z-index: 5;
+}
+
+.arsenal-console-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* ── NAV DECK (Left) ── */
+.arsenal-nav-deck {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.deck-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-gold);
+  padding: 0.25rem 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0.5rem;
+}
+
+.deck-terminal-icon {
+  font-size: 0.85rem;
+}
+
+.arsenal-category-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.arsenal-category-btn:hover {
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.35);
+  transform: translateX(4px);
+}
+
+.arsenal-category-btn.active {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(212, 175, 55, 0.06));
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), var(--shadow-gold);
+}
+
+.cat-btn-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.arsenal-category-btn.active .cat-btn-icon {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: rgba(212, 175, 55, 0.4);
+  color: var(--accent-gold-light);
+}
+
+.cat-btn-meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cat-btn-num {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.1em;
+}
+
+.cat-btn-name {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+.cat-btn-indicator {
+  width: 4px;
+  height: 24px;
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.arsenal-category-btn.active .cat-btn-indicator {
+  background: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+}
+
+/* ── DISPLAY STAGE (Right) ── */
+.arsenal-display-stage {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stage-deck-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-gold);
+}
+
+.stage-cat-title {
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 3px;
+}
+
+.stage-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+}
+
+.stage-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+}
+
+.stage-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.arsenal-skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 1.15rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.arsenal-skill-item:hover {
+  border-color: var(--accent-gold);
+  background: var(--accent-gold-subtle);
+  transform: translateY(-2px);
+}
+
+.skill-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.skill-bullet {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--accent-gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.skill-name-text {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.skill-tag-code {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.06em;
+  background: var(--accent-gold-subtle);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+/* Gemini Spotlight Box */
+.gemini-spotlight-box {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, var(--accent-gold-subtle), var(--bg-card));
+  border: 1px solid var(--accent-gold);
+  border-radius: 14px;
+}
+
+.gemini-spotlight-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.5rem;
+}
+
+.gemini-icon {
+  color: var(--accent-gold-light);
+  font-size: 1.1rem;
+}
+
+.gemini-spotlight-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold-light);
+}
+
+.gemini-spotlight-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .arsenal-console-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .stage-skills-grid {
+    grid-template-columns: 1fr;
+  }
+}

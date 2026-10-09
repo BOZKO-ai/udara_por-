@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Animation Utilities — Cinematic Scroll & Hover Effects
+   Extends existing design without changing typography/colors/layout
+   ========================================================================== */
+
+/* ── GSAP-TARGET CLASSES (initial hidden state for JS to pick up) ──────── */
+
+/* Generic fade-up — JS animates opacity + y */
+.anim-fade-up {
+  opacity: 0;
+  transform: translateY(48px);
+  will-change: transform, opacity;
+}
+
+/* Horizontal slide */
+.anim-slide-left {
+  opacity: 0;
+  transform: translateX(-64px);
+  will-change: transform, opacity;
+}
+
+.anim-slide-right {
+  opacity: 0;
+  transform: translateX(64px);
+  will-change: transform, opacity;
+}
+
+/* Clip-path wipe reveal (used for image frames) */
+.anim-clip-wipe {
+  clip-path: inset(0 100% 0 0);
+  will-change: clip-path;
+}
+
+/* Scale pop */
+.anim-scale-pop {
+  opacity: 0;
+  transform: scale(0.88);
+  will-change: transform, opacity;
+}
+
+/* Blur reveal */
+.anim-blur-reveal {
+  opacity: 0;
+  filter: blur(14px);
+  will-change: opacity, filter;
+}
+
+/* ── PARALLAX WRAPPER ──────────────────────────────────────────────────── */
+
+.parallax-slow {
+  will-change: transform;
+}
+
+.parallax-fast {
+  will-change: transform;
+}
+
+/* ── MAGNETIC HOVER CARDS (enhanced from base hover styles) ──────────── */
+
+.magnetic-card {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  cursor: pointer;
+}
+
+/* Image overlay shimmer on hover */
+.img-shimmer-host {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-shimmer-host::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(184, 255, 0, 0.06) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  transition: transform 0s;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.img-shimmer-host:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.7s ease;
+}
+
+/* ── SECTION TRANSITION LINES ─────────────────────────────────────────── */
+
+/* Animated hairline divider that draws itself */
+.anim-line-draw {
+  width: 0%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-lime, #b8ff00) 0%, transparent 100%);
+  transition: none;
+  will-change: width;
+}
+
+/* ── TITLE SPLIT ANIMATION HELPERS ───────────────────────────────────── */
+
+/* Each word wraps in a clip-overflow container */
+.word-reveal-wrap {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.word-reveal-inner {
+  display: inline-block;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+/* ── SCROLL PROGRESS LINE (left edge) ────────────────────────────────── */
+
+.section-scroll-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-lime, #b8ff00), transparent);
+  transform-origin: top;
+  scaleY: 0;
+  will-change: transform;
+}
+
+/* ── STAGGER REVEAL LIST ITEMS ───────────────────────────────────────── */
+
+.stagger-list > * {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+}
+
+/* ── GLITCH FLICKER (for section markers on entry) ───────────────────── */
+
+@keyframes glitchFlicker {
+  0%   { opacity: 1; clip-path: inset(0 0 0 0); }
+  5%   { opacity: 0.8; clip-path: inset(0 10% 0 0); transform: translateX(-2px); }
+  10%  { opacity: 1; clip-path: inset(0 0 0 0); transform: translateX(0); }
+  15%  { opacity: 0.9; clip-path: inset(0 0 0 15%); transform: translateX(1px); }
+  20%  { opacity: 1; clip-path: inset(0 0 0 0); transform: translateX(0); }
+  100% { opacity: 1; }
+}
+
+.glitch-on-entry {
+  animation: glitchFlicker 0.6s steps(1) forwards;
+  animation-play-state: paused;
+}
+
+.glitch-on-entry.is-visible {
+  animation-play-state: running;
+}
+
+/* ── REDUCED MOTION SAFEGUARD ─────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .anim-slide-left,
+  .anim-slide-right,
+  .anim-clip-wipe,
+  .anim-scale-pop,
+  .anim-blur-reveal,
+  .stagger-list > *,
+  .word-reveal-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+}

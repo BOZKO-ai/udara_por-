@@ -1,0 +1,165 @@
+/* ==========================================================================
+   Bottom Timeline Navigation Bar
+   ========================================================================== */
+
+.bottom-timeline-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 52px;
+  background: var(--navbar-scrolled-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-color);
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Hairline Progress Track */
+.timeline-progress-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.timeline-progress-fill {
+  height: 100%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 10px var(--accent-lime);
+  transition: width 0.12s ease-out;
+}
+
+.timeline-inner-container {
+  max-width: var(--max-width, 1400px);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Active Info (Left) */
+.timeline-active-info {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 160px;
+}
+
+.active-dot-lime {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+  animation: chapterDotPulse 1.8s infinite;
+}
+
+.active-chapter-text {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-lime);
+  white-space: nowrap;
+}
+
+/* Steps Nav (Center) */
+.timeline-steps-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.timeline-step-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.step-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.timeline-step-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.timeline-step-btn:hover .step-label,
+.timeline-step-btn:hover .step-num {
+  color: var(--text-primary);
+}
+
+.timeline-step-btn.active {
+  background: rgba(184, 255, 0, 0.1);
+  border-color: rgba(184, 255, 0, 0.3);
+}
+
+.timeline-step-btn.active .step-num {
+  color: var(--accent-lime);
+}
+
+.timeline-step-btn.active .step-label {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Top Button (Right) */
+.timeline-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timeline-top-btn:hover {
+  color: var(--accent-lime);
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .step-label {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline-steps-nav {
+    display: none;
+  }
+}

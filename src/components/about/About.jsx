@@ -1,12 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiDownload, FiCheckCircle, FiGlobe } from 'react-icons/fi';
+import { FiDownload, FiCheckCircle, FiGlobe, FiAward, FiBookOpen } from 'react-icons/fi';
 import './About.css';
 
-// ── Shared scroll-triggered fade-up ──────────────────────────────────────────
 const fadeUp = {
-  hidden: { opacity: 0, y: 48 },
-  show:   { opacity: 1, y: 0,  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } },
 };
 
 const stagger = (delay = 0) => ({
@@ -18,126 +17,182 @@ export default function About({ data }) {
   const { tagline, headline, bio, education, skills, softSkills, languages, stats, cta } = data || {};
 
   return (
-    <section id="about" className="about-wrapper">
-      {/* Ambient glow blobs */}
-      <div className="about-blob about-blob-left"  aria-hidden="true" />
-      <div className="about-blob about-blob-right" aria-hidden="true" />
+    <section id="journey" className="scene-about-wrapper">
+      <div id="about" style={{ position: 'absolute', top: 0 }} />
+      {/* Cinematic Ambient Glow & Vignette */}
+      <div className="scene-ambient-glow scene-glow-left" aria-hidden="true" />
+      <div className="scene-ambient-glow scene-glow-right" aria-hidden="true" />
 
-      <div className="about-container">
-
-        {/* ── Section label ── */}
-        <motion.p
-          className="section-tagline"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
-        >
-          {tagline || 'Who Am I?'}
-        </motion.p>
-
-        {/* ── Two-column layout ── */}
-        <div className="about-grid">
-
-          {/* LEFT — bio + stats */}
+      <div className="scene-about-container">
+        {/* Chapter Header */}
+        <div className="scene-header-block">
           <motion.div
-            className="about-left"
+            className="chapter-badge-wrap"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            <span className="chapter-dot" />
+            <span className="chapter-label">CHAPTER 01 // MY JOURNEY</span>
+          </motion.div>
+
+          <motion.h2
+            className="editorial-title"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {(headline || 'Engineering Digital Systems\nWith Cinematic Precision').split('\n').map((line, i) => (
+              <span key={i} className="cinematic-title-line">
+                {i === 1 ? <span className="text-lime-highlight">{line}</span> : line}
+              </span>
+            ))}
+          </motion.h2>
+
+          <motion.p
+            className="section-cinematic-subhead"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {tagline || "The narrative behind my software craft, academic distinction at SLIATE Kandy, and vision for AI-driven applications."}
+          </motion.p>
+        </div>
+
+        {/* Two-Column Editorial Grid */}
+        <div className="scene-about-grid">
+          {/* LEFT COLUMN: Narrative Bio & Academic Milestone */}
+          <motion.div
+            className="about-editorial-left"
             variants={stagger(0.1)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
           >
-            <motion.h2 className="about-headline" variants={fadeUp}>
-              {(headline || 'Crafting Digital\nExperiences').split('\n').map((line, i) => (
-                <span key={i} className="about-headline-line">{line}</span>
-              ))}
-            </motion.h2>
+            <div className="about-bio-card">
+              <div className="bio-card-header">
+                <span className="bio-tag">NARRATIVE SYNOPSIS</span>
+                <span className="bio-time">2024 – PRESENT</span>
+              </div>
 
-            {bio?.map((para, i) => (
-              <motion.p key={i} className="about-bio" variants={fadeUp}>
-                {para}
-              </motion.p>
-            ))}
+              <div className="bio-paragraphs">
+                {bio?.map((para, i) => (
+                  <motion.p key={i} className="bio-text" variants={fadeUp}>
+                    {para}
+                  </motion.p>
+                ))}
+              </div>
+            </div>
 
+            {/* Academic Distinction Card */}
             {education && (
-              <motion.div className="about-education-card" variants={fadeUp}>
-                <div className="edu-top">
-                  <span className="edu-badge">{education.period}</span>
-                  <span className="edu-gpa">{education.gpa}</span>
+              <motion.div className="cinema-education-card" variants={fadeUp}>
+                <div className="edu-header-row">
+                  <div className="edu-icon-badge">
+                    <FiBookOpen />
+                  </div>
+                  <div className="edu-title-stack">
+                    <span className="edu-period-tag">{education.period}</span>
+                    <h3 className="edu-degree-name">{education.degree}</h3>
+                  </div>
+                  <div className="edu-gpa-badge">
+                    <FiAward />
+                    <span>{education.gpa}</span>
+                  </div>
                 </div>
-                <h4 className="edu-degree">{education.degree}</h4>
-                <p className="edu-institute">{education.institution}</p>
+
+                <p className="edu-institution-name">{education.institution}</p>
+
+                {education.highlights && (
+                  <div className="edu-highlights-list">
+                    {education.highlights.map((item, idx) => (
+                      <span key={idx} className="edu-highlight-chip">
+                        <FiCheckCircle className="chip-check" />
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             )}
 
-            {/* Stats row */}
-            <motion.div className="about-stats" variants={stagger(0.2)}>
+            {/* Key Metric Stats Grid */}
+            <motion.div className="cinema-stats-grid" variants={stagger(0.15)}>
               {stats?.map((s) => (
-                <motion.div key={s.label} className="stat-card" variants={fadeUp}>
-                  <span className="stat-value">{s.value}</span>
-                  <span className="stat-label">{s.label}</span>
+                <motion.div key={s.label} className="cinema-stat-item" variants={fadeUp}>
+                  <span className="cinema-stat-value text-lime-highlight">{s.value}</span>
+                  <span className="cinema-stat-label">{s.label}</span>
+                  {s.sub && <span className="cinema-stat-sub">{s.sub}</span>}
                 </motion.div>
               ))}
             </motion.div>
 
+            {/* CTA Download Resume */}
             {cta && (
-              <motion.a
-                href={cta.href}
-                download={cta.download ? "Udara_Lakshan_CV.pdf" : undefined}
-                target={cta.download ? "_blank" : undefined}
-                rel={cta.download ? "noopener noreferrer" : undefined}
-                className="about-cta-btn"
-                variants={fadeUp}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <FiDownload style={{ marginRight: '0.55rem', fontSize: '1.1rem' }} />
-                {cta.label}
-              </motion.a>
+              <motion.div className="about-cta-container" variants={fadeUp}>
+                <a
+                  href={cta.href}
+                  download={cta.download ? "Udara_Lakshan_CV.pdf" : undefined}
+                  target={cta.download ? "_blank" : undefined}
+                  rel={cta.download ? "noopener noreferrer" : undefined}
+                  className="about-lime-cv-btn"
+                >
+                  <FiDownload className="cv-icon" />
+                  <span>{cta.label}</span>
+                </a>
+              </motion.div>
             )}
           </motion.div>
 
-          {/* RIGHT — skill bars & competencies */}
+          {/* RIGHT COLUMN: Skill Mastery & Competencies */}
           <motion.div
-            className="about-right"
-            variants={stagger(0.25)}
+            className="about-editorial-right"
+            variants={stagger(0.2)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
           >
-            <motion.h3 className="skills-heading" variants={fadeUp}>
-              Technical Skills
-            </motion.h3>
-            <div className="skills-list">
-              {skills?.map((skill) => (
-                <motion.div key={skill.label} className="skill-item" variants={fadeUp}>
-                  <div className="skill-meta">
-                    <span className="skill-label">{skill.label}</span>
-                    <span className="skill-pct">{skill.level}%</span>
-                  </div>
-                  <div className="skill-track">
-                    <motion.div
-                      className="skill-fill"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
+            {/* Technical Proficiency Bars */}
+            <div className="skills-console-card">
+              <div className="console-header">
+                <span className="console-title">TECHNICAL MASTERY LEVELS</span>
+                <span className="console-status">VERIFIED BENCHMARKS</span>
+              </div>
+
+              <div className="skills-bars-list">
+                {skills?.map((skill) => (
+                  <motion.div key={skill.label} className="skill-meter-row" variants={fadeUp}>
+                    <div className="skill-meter-header">
+                      <span className="skill-meter-name">{skill.label}</span>
+                      <span className="skill-meter-pct">{skill.level}%</span>
+                    </div>
+                    <div className="skill-meter-track">
+                      <motion.div
+                        className="skill-meter-fill"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
-            {/* Soft Skills & Core Competencies */}
+            {/* Soft Skills & Core Disciplines */}
             {softSkills?.length > 0 && (
-              <motion.div className="soft-skills-wrapper" variants={fadeUp}>
-                <h4 className="competencies-subheading">Core Competencies</h4>
-                <div className="soft-skills-chips">
+              <motion.div className="competencies-card" variants={fadeUp}>
+                <h3 className="competencies-title">CORE PROFESSIONAL COMPETENCIES</h3>
+                <div className="competencies-chips-grid">
                   {softSkills.map((item) => (
-                    <span key={item} className="soft-skill-chip">
-                      <FiCheckCircle className="chip-icon" />
-                      {item}
-                    </span>
+                    <div key={item} className="competency-chip">
+                      <FiCheckCircle className="comp-icon" />
+                      <span>{item}</span>
+                    </div>
                   ))}
                 </div>
               </motion.div>
@@ -145,21 +200,22 @@ export default function About({ data }) {
 
             {/* Languages */}
             {languages?.length > 0 && (
-              <motion.div className="languages-wrapper" variants={fadeUp}>
-                <h4 className="competencies-subheading">Languages</h4>
-                <div className="languages-list">
+              <motion.div className="languages-card" variants={fadeUp}>
+                <h3 className="competencies-title">COMMUNICATION &amp; LANGUAGES</h3>
+                <div className="languages-row">
                   {languages.map((lang) => (
-                    <div key={lang.name} className="language-badge">
-                      <FiGlobe className="lang-icon" />
-                      <span className="lang-name">{lang.name}</span>
-                      <span className="lang-level">{lang.level}</span>
+                    <div key={lang.name} className="lang-pill">
+                      <FiGlobe className="lang-globe-icon" />
+                      <div className="lang-text-stack">
+                        <span className="lang-name-text">{lang.name}</span>
+                        <span className="lang-level-text">{lang.level}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </motion.div>
             )}
           </motion.div>
-
         </div>
       </div>
     </section>
