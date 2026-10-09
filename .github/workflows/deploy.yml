@@ -1,6 +1,6 @@
 name: Deploy React Portfolio
 
-on:
+'on':
 push:
 branches:
 - main
